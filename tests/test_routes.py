@@ -13,6 +13,7 @@ from service.common import status  # HTTP Status Codes
 from service.models import db, Account, init_db
 from service.routes import app
 from service import talisman
+from service import CORS
 
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
