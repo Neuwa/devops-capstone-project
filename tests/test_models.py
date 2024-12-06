@@ -122,6 +122,12 @@ class TestAccount(unittest.TestCase):
         accounts = Account.all()
         self.assertEqual(len(accounts), 0)
 
+    def test_repr(self):
+        """Test the representation of an account"""
+        account = AccountFactory(name="Foo")
+        account.id = None
+        self.assertEqual(str(account), '<Account Foo id=[None]>')
+
     def test_list_all_accounts(self):
         """It should List all Accounts in the database"""
         accounts = Account.all()
