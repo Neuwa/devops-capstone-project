@@ -194,3 +194,12 @@ class TestAccountService(TestCase):
         """It should not allow an illegal method call"""
         resp = self.client.delete(BASE_URL)
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_update_id_not_found(self):
+        """It should give status.HTTP_404_NOT_FOUND update non-existing ID"""
+        self._create_accounts(5)
+        account = self._create_accounts(1)[0]
+        resp = self.client.delete(f"{BASE_URL}/{account.id}")# delete the first account
+        # try update with the deleted id
+        resp_upd = self.client.put(f"{BASE_URL}/{account.id}")
+        self.assertEqual(resp_upd.status_code, status.HTTP_404_NOT_FOUND)
