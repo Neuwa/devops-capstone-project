@@ -170,3 +170,14 @@ class TestAccountService(TestCase):
         # try update with the deleted id
         resp_upd = self.client.put(f"{BASE_URL}/{account.id}")
         self.assertEqual(resp_upd.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_method_not_allowed(self):
+        """It should not allow an illegal method call"""
+        resp = self.client.delete(BASE_URL)
+        self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_delete_account(self):
+        """It should Delete an Account"""
+        account = self._create_accounts(1)[0]
+        resp = self.client.delete(f"{BASE_URL}/{account.id}")
+        self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
