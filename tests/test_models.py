@@ -45,6 +45,10 @@ class TestAccount(unittest.TestCase):
     ######################################################################
     #  T E S T   C A S E S
     ######################################################################
+    def test_init(self):
+        """It should test inital id is none"""
+        account = Account()
+        self.assertEqual(account.id, None)
 
     def test_create_an_account(self):
         """It should Create an Account and assert that it exists"""
@@ -64,6 +68,12 @@ class TestAccount(unittest.TestCase):
         self.assertEqual(account.address, fake_account.address)
         self.assertEqual(account.phone_number, fake_account.phone_number)
         self.assertEqual(account.date_joined, fake_account.date_joined)
+
+    def test_repr(self):
+        """Test the representation of an account"""
+        account = AccountFactory(name="Foo")
+        account.id = None
+        self.assertEqual(str(account), '<Account Foo id=[None]>')
 
     def test_add_a_account(self):
         """It should Create an account and add it to the database"""
